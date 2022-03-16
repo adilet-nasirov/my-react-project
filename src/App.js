@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { data } from "./data";
+import { Button } from "@mui/material";
+
 const App = () => {
-  console.log(data);
+  const [page, setPage] = useState(2);
+  const handlePrev = () => {
+    if (page) {
+      let num = page - 1;
+      setPage(num);
+    }
+  };
+  const handleNext = () => {
+    if (page < data.length - 1) {
+      let num = page + 1;
+      setPage(num);
+    }
+  };
   return (
     <div>
-      {data.map((item) => {
-        return <h1>{item.Name}</h1>;
-      })}
+      <div className="container">
+        <h1>{data[page].Name}</h1>
+      </div>
+      <div>
+        <Button onClick={handlePrev}>prev</Button>
+        <Button onClick={handleNext}>next</Button>
+      </div>
     </div>
   );
 };

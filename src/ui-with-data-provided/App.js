@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { data } from "./data";
 import { Box, Button } from "@mui/material";
 import Section from "./Section";
-import "./App.css";
+// import "./App.css";
 
 const App = () => {
   const [page, setPage] = useState(2);

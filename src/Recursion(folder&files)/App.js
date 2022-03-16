@@ -1,7 +1,8 @@
 import React from "react";
 import { data } from "./data";
+import "./App.css";
 import FolderIcon from "@mui/icons-material/Folder";
-import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import ArticleRoundedIcon from "@mui/icons-material/ArticleRounded";
 const App = () => {
   console.log(data);
   return (
@@ -21,7 +22,7 @@ function Helper({ input }) {
         if (item.type === "file") {
           return (
             <li>
-              <InsertDriveFileIcon />
+              <ArticleRoundedIcon />
               {item.name}
             </li>
           );

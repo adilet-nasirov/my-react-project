@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  background-color: gainsboro;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  margin-top: 150px;
+  /* width: 325px; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+.cell {
+  background-color: aqua;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+}

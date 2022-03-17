@@ -11,7 +11,7 @@ const App = () => {
   const handleMouseOver = (index) => {
     setClickedIndex(index);
   };
-  const handleMouseLeave = (index) => {
+  const handleMouseLeave = () => {
     if (!flag) setClickedIndex(-1);
   };
   return (
@@ -23,7 +23,7 @@ const App = () => {
             color={index <= clickedIndex ? "warning" : ""}
             onClick={() => handleClick(index)}
             onMouseOver={() => handleMouseOver(index)}
-            onMouseLeave={() => handleMouseLeave(index)}
+            onMouseLeave={() => handleMouseLeave()}
           />
         );
       })}

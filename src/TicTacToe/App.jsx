@@ -6,7 +6,7 @@ const App = () => {
   const [xturn, setXturn] = useState(true);
   const [xData, setXdata] = useState([]);
   const [oData, setOdata] = useState([]);
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState(false);
   const winList = [
     //horizontal
     [0, 1, 2],
@@ -22,34 +22,70 @@ const App = () => {
   ];
   //   console.log(cells);
   const handleClick = (index) => {
-    let newCells = [...cells];
-    if (xturn) {
-      newCells[index] = "X";
-      setXdata([...xData, index]);
-    } else {
-      newCells[index] = "O";
-      setOdata([...oData, index]);
+    if (!winner) {
+      let newCells = [...cells];
+      if (xturn) {
+        newCells[index] = "X";
+        setXdata([...xData, index]);
+        setXturn(false);
+      } else {
+        newCells[index] = "O";
+        setOdata([...oData, index]);
+        setXturn(true);
+      }
+      setCells(newCells);
     }
-    setCells(newCells);
-    setXturn(!xturn);
   };
-  useEffect(() => {
-    if (xData.length >= 3 || oData.length >= 3) {
-      for (let el of winList) {
-        let winComb = el.join("");
-        let xComb = xData.sort().join("");
-        let oComb = oData.sort().join("");
-        if (winComb === xComb || xComb.includes(winComb)) setWinner("X");
-        if (winComb === oComb || oComb.includes(winComb)) setWinner("O");
+  let tempWinner = 0;
+  const checkWinner = (data) => {
+    console.log(data + "this is data");
+    for (let el of winList) {
+      let count = 0;
+      for (let x of data) {
+        if (el.includes(x)) count++;
+      }
+      if (count === 3) {
+        setWinner(`${cells[data[0]]} is winner`);
+        console.log("<<<won");
+        tempWinner = true;
+        setOdata([]);
+        setXdata([]);
       }
     }
+  };
+  useEffect(() => {
+    if (!winner) {
+      if (xData.length >= 3) {
+        checkWinner(xData);
+      }
+      if (oData.length >= 3) {
+        checkWinner(oData);
+      }
+    }
+    if (cells.every((item) => typeof item === "string")) {
+      xturn ? checkWinner(oData) : checkWinner(xData);
+      console.log(tempWinner);
+      if (!tempWinner) setWinner("DRAW");
+    }
   }, [xData, oData]);
-  console.log(xData, oData);
+  const handleRestart = () => {
+    setCells([...Array(9).keys()]);
+    setOdata([]);
+    setXdata([]);
+    setWinner(0);
+    tempWinner = 0;
+  };
+  console.log(xData);
+  console.log(oData);
   return (
     <main>
       <Typography variant="h3">Tic Tac Toe</Typography>
-      <h1 style={{ color: xturn ? "lime" : "deeppink" }}>
-        {xturn ? "X's turn" : "O's turn"}
+      <h1
+        style={{
+          color: winner ? "rgb(204, 0, 255)" : xturn ? "lime" : "deeppink",
+        }}
+      >
+        {winner ? winner : xturn ? "X's turn" : "O's turn"}
       </h1>
       <div className="container">
         {cells.map((item, index) => {
@@ -74,7 +110,9 @@ const App = () => {
         })}
       </div>
       <div className="restartBtn">
-        <Button variant="contained">Restart</Button>
+        <Button variant="contained" onClick={handleRestart}>
+          Restart
+        </Button>
       </div>
     </main>
   );

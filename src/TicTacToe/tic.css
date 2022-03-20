@@ -12,6 +12,7 @@ main {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  /* background-color: rgb(204, 0, 255); */
 }
 .container {
   margin-top: 20px;
@@ -20,11 +21,9 @@ main {
   grid-template-rows: 1fr 1fr 1fr;
 }
 .cell {
-  /* background-color: #153b4d; */
   border: #fff solid 1px;
   width: 120px;
   height: 120px;
-  /* color: #fff; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,5 +35,4 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* font-size: 2rem; */
 }

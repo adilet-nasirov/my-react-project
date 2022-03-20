@@ -22,7 +22,7 @@ const App = () => {
   ];
   //   console.log(cells);
   const handleClick = (index) => {
-    if (!winner) {
+    if (!winner && typeof cells[index] !== "string") {
       let newCells = [...cells];
       if (xturn) {
         newCells[index] = "X";
@@ -36,9 +36,9 @@ const App = () => {
       setCells(newCells);
     }
   };
-  let tempWinner = 0;
+  let tempWinner = false;
   const checkWinner = (data) => {
-    console.log(data + "this is data");
+    // console.log(data + "this is data");
     for (let el of winList) {
       let count = 0;
       for (let x of data) {
@@ -65,18 +65,18 @@ const App = () => {
     if (cells.every((item) => typeof item === "string")) {
       xturn ? checkWinner(oData) : checkWinner(xData);
       console.log(tempWinner);
-      if (!tempWinner) setWinner("DRAW");
+      if (tempWinner === false) {
+        setWinner("DRAW");
+      }
     }
   }, [xData, oData]);
   const handleRestart = () => {
     setCells([...Array(9).keys()]);
+    tempWinner = false;
     setOdata([]);
     setXdata([]);
-    setWinner(0);
-    tempWinner = 0;
+    setWinner(false);
   };
-  console.log(xData);
-  console.log(oData);
   return (
     <main>
       <Typography variant="h3">Tic Tac Toe</Typography>

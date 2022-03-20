@@ -6,7 +6,7 @@ const App = () => {
   const [xturn, setXturn] = useState(true);
   const [xData, setXdata] = useState([]);
   const [oData, setOdata] = useState([]);
-  const [winner, setWinner] = useState(false);
+  const [winner, setWinner] = useState(0);
   const winList = [
     //horizontal
     [0, 1, 2],
@@ -20,7 +20,6 @@ const App = () => {
     [1, 4, 7],
     [2, 5, 8],
   ];
-  //   console.log(cells);
   const handleClick = (index) => {
     if (!winner && typeof cells[index] !== "string") {
       let newCells = [...cells];
@@ -36,7 +35,6 @@ const App = () => {
       setCells(newCells);
     }
   };
-  let tempWinner = false;
   const checkWinner = (data) => {
     // console.log(data + "this is data");
     for (let el of winList) {
@@ -44,14 +42,17 @@ const App = () => {
       for (let x of data) {
         if (el.includes(x)) count++;
       }
-      if (count === 3) {
+      if (count === el.length) {
         setWinner(`${cells[data[0]]} is winner`);
-        console.log("<<<won");
-        tempWinner = true;
         setOdata([]);
         setXdata([]);
       }
     }
+    setTimeout(() => {
+      if (winner === false && cells.every((item) => typeof item === "string")) {
+        setWinner("DRAW");
+      }
+    }, 1000);
   };
   useEffect(() => {
     if (!winner) {
@@ -62,20 +63,13 @@ const App = () => {
         checkWinner(oData);
       }
     }
-    if (cells.every((item) => typeof item === "string")) {
-      xturn ? checkWinner(oData) : checkWinner(xData);
-      console.log(tempWinner);
-      if (tempWinner === false) {
-        setWinner("DRAW");
-      }
-    }
-  }, [xData, oData]);
-  const handleRestart = () => {
+  }, [cells]);
+  const handleRestart = (event) => {
     setCells([...Array(9).keys()]);
-    tempWinner = false;
     setOdata([]);
     setXdata([]);
     setWinner(false);
+    event.preventDefault();
   };
   return (
     <main>

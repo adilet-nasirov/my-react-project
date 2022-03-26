@@ -1,16 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./RecipeSearch/App";
-// import App from "./App";
+// import App from "./RecipeSearch/App";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ContextProvider } from "./RecipeSearch/GeneralContext";
+// import { ContextProvider } from "./RecipeSearch/GeneralContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ContextProvider>
-      <App />
-    </ContextProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

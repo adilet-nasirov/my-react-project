@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Context } from "./GeneralContext";
-import Details from "./RecipeSearch/Details";
-import Home from "./RecipeSearch/Home";
-import NotFoundPage from "./RecipeSearch/NotFoundPage";
+import Details from "./Details";
+import Home from "./Home";
+import NotFoundPage from "./NotFoundPage";
 
 const App = () => {
   const data = useContext(Context);
